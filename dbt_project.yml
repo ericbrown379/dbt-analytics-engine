@@ -36,10 +36,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  dbt_analytics_engineer_book:
+  dbt_analytics_engineer:
     staging:
       +materialized: view
     intermediate:
       +materialized: view
     marts:
+      +materialized: table
+    metricflow_time_spine:
       +materialized: table

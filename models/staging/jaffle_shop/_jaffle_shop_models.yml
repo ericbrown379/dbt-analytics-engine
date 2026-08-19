@@ -12,7 +12,9 @@ models:
 
   - name: stg_jaffle_shop_orders
     config:
-      materialized: view
+      materialized: incremental
+      incremental_strategy: merge
+      unique_key: order_id
     columns:
       - name: order_id
         data_tests:
@@ -21,14 +23,16 @@ models:
       - name: status
         data_tests:
           - accepted_values:
-              values:
-                - completed
-                - shipped
-                - returned
-                - placed
-                - return_pending
+              arguments:
+                values:
+                  - completed
+                  - shipped
+                  - returned
+                  - placed
+                  - return_pending
       - name: customer_id
         data_tests:
           - relationships:
-              to: ref('stg_jaffle_shop_customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_jaffle_shop_customers')
+                field: customer_id

@@ -22,3 +22,5 @@ SELECT
 
 FROM orders as ord
 LEFT JOIN payment_type_orders as pto ON ord.order_id = pto.order_id    
+-- Add MACRO HERE
+{{ limit_dataset_if_not_deploy_env('order_date', 3) }}
